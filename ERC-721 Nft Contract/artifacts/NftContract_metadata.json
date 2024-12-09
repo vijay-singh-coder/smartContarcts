@@ -1,0 +1,45 @@
+{
+	"compiler": {
+		"version": "0.8.26+commit.8a97fa7a"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"ERC-721 Nft Contract/nftContract.sol": "NftContract"
+		},
+		"evmVersion": "cancun",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"ERC-721 Nft Contract/nftContract.sol": {
+			"keccak256": "0xb061c9396e5397e94b263a6d3cf4484c929235a77c6cdc0ad6ef566c7c4e8e6e",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://655e3e2119a98c243aa7baa4e43bd8c2650f322a457d06b4c542d3d327f8f341",
+				"dweb:/ipfs/QmPEVm7VUdK43gHAq4FShC3XnQvb58G4TKH6VdRMsw5W8R"
+			]
+		}
+	},
+	"version": 1
+}
