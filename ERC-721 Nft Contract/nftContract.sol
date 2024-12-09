@@ -7,15 +7,17 @@ import {ERC721Enumerable} from "@openzeppelin/contracts/token/ERC721/extensions/
 import {ERC721Pausable} from "@openzeppelin/contracts/token/ERC721/extensions/ERC721Pausable.sol";
 import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
 
-contract Web3Builders is ERC721, ERC721Enumerable, ERC721Pausable, Ownable {
+contract Web3Token is ERC721, ERC721Enumerable, ERC721Pausable, Ownable {
     uint256 private _nextTokenId;
-    uint256 _maxSupply = 1;
-    bool public publicMintOpen;
-    bool public allowListMintOpen;
-    mapping (address => bool) public allowList;
+
+    uint256 maxSupply = 2000;
+    bool public publicMintOpen = false;
+    bool public allowListMintOpen = false;
+
+    mapping(address => bool) public allowList;
 
     constructor(address initialOwner)
-        ERC721("Web3Builders", "WE3")
+        ERC721("Web3Token", "WB3")
         Ownable(initialOwner)
     {}
 
@@ -31,32 +33,17 @@ contract Web3Builders is ERC721, ERC721Enumerable, ERC721Pausable, Ownable {
         _unpause();
     }
 
-    // Populate the Allow List
-     function allowListCheck(address[] calldata _addresses)external onlyOwner{
-        for (uint256 i=0; i<_addresses.length;i++) {
-            allowList[_addresses[i]]=true;
-        }
-    }
-   
-    function setMintWindow(bool _publicMintOpen , bool _allowListMintOpen )external onlyOwner{
-         publicMintOpen = _publicMintOpen;
-         allowListMintOpen = _allowListMintOpen;
-        
+    function editMintWindows(
+        bool _publicMintOpen,
+        bool _allowListMintOpen
+    ) external onlyOwner {
+        publicMintOpen = _publicMintOpen;
+        allowListMintOpen = _allowListMintOpen;
     }
 
-    //make the mint transaction PAYABLE
-    function publicMint() public payable  {
-        
-        require(totalSupply() < _maxSupply,"We sold out");
-        require(msg.value == 0.01 ether, "Not enough fund");
-        uint256 tokenId = _nextTokenId++;
-        _safeMint(msg.sender, tokenId);
-    }
-
-    function allowListMint() public payable  {
-        require(allowList[msg.sender],"You are not authorised");
-        require(totalSupply() < _maxSupply,"We sold out");
-        require(msg.value == 0.001 ether, "Not enough fund");
+    function allowListMint() public payable {
+        require(allowListMintOpen, "Allowlist Mint Closed");
+        require(msg.value == 0.001 ether, "Not Enough Funds");
         uint256 tokenId = _nextTokenId++;
         _safeMint(msg.sender, tokenId);
     }
@@ -65,6 +52,19 @@ contract Web3Builders is ERC721, ERC721Enumerable, ERC721Pausable, Ownable {
         // get the balance of the contract
         uint256 balalnce = address(this).balance;
         payable(_addr).transfer(balalnce);
+    }
+
+    function publicMint() public payable {
+        require(publicMintOpen, "Public Mint Closed");
+        require(msg.value == 0.01 ether, "Not Enough Funds");
+        uint256 tokenId = _nextTokenId++;
+        _safeMint(msg.sender, tokenId);
+    }
+
+    function setAllowList(address[] calldata addresses) external onlyOwner {
+        for(uint256 i = 0; i < addresses.length; i++){
+            allowList[addresses[i]] = true;
+        }
     }
 
     // The following functions are overrides required by Solidity.
