@@ -43,6 +43,13 @@ contract Web3Token is ERC721, ERC721Enumerable, ERC721Pausable, Ownable {
 
     function allowListMint() public payable {
         require(allowListMintOpen, "Allowlist Mint Closed");
+        require(msg.value == 0.0001 ether, "Not Enough Funds");
+        uint256 tokenId = _nextTokenId++;
+        _safeMint(msg.sender, tokenId);
+    }
+
+    function publicMint() public payable {
+        require(publicMintOpen, "Public Mint Closed");
         require(msg.value == 0.001 ether, "Not Enough Funds");
         uint256 tokenId = _nextTokenId++;
         _safeMint(msg.sender, tokenId);
@@ -52,13 +59,6 @@ contract Web3Token is ERC721, ERC721Enumerable, ERC721Pausable, Ownable {
         // get the balance of the contract
         uint256 balalnce = address(this).balance;
         payable(_addr).transfer(balalnce);
-    }
-
-    function publicMint() public payable {
-        require(publicMintOpen, "Public Mint Closed");
-        require(msg.value == 0.01 ether, "Not Enough Funds");
-        uint256 tokenId = _nextTokenId++;
-        _safeMint(msg.sender, tokenId);
     }
 
     function setAllowList(address[] calldata addresses) external onlyOwner {

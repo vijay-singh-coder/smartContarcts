@@ -1121,11 +1121,11 @@
 			]
 		},
 		"ERC-721 Nft Contract/nftContract.sol": {
-			"keccak256": "0x968891323e25d12de906f7fe3d6c176e765c71670bc86fd8fbd6c0c5db01e7e9",
+			"keccak256": "0xfaf6cef1c61b30303db100d5fd9c5b99c45f91633fede37c2aa3eb9b83356aba",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://e692cd3a9c46d2f87f9871cf73cb8ecb8ea7848a55a191ce639221b34dd38366",
-				"dweb:/ipfs/QmXYwc4YQrA71TnyES7C92WF18SHC22nDFNUisM3EawqKr"
+				"bzz-raw://6e5399a539c0d4133fe5548432d35b2f8ad8df99b87289dc9be481b5e39de964",
+				"dweb:/ipfs/QmQGTeb6cScTbA4XJoUU2fm2c14kDNNUCFE6veNGxgBjFE"
 			]
 		}
 	},
